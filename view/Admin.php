@@ -17,11 +17,11 @@
             <table>
                 <tr>
                     <td><label for="username">Username:</label></td>
-                    <td><input type="text" id="username" name="username"></td>
+                    <td><input type="text" id="username" name="username" placeholder="Soumik Sarker" required></td>
                 </tr>
                 <tr>
                     <td><label for="password">Password:</label></td>
-                    <td><input type="password" id="password" name="password"></td>
+                    <td><input type="password" id="password" name="password" placeholder="Ss1@" required></td>
                 </tr>
                 <tr>
                     <td><label for="role">Role:</label></td>
@@ -43,19 +43,19 @@
             <table>
                 <tr>
                     <td><label for="firstName">First Name:</label></td>
-                    <td><input type="text" id="firstName" name="firstName"></td>
+                    <td><input type="text" id="firstName" name="firstName" placeholder="Soumik"></td>
                 </tr>
                 <tr>
                     <td><label for="lastName">Last Name:</label></td>
-                    <td><input type="text" id="lastName" name="lastName"></td>
+                    <td><input type="text" id="lastName" name="lastName" placeholder="Sarker"></td>
                 </tr>
                 <tr>
                     <td><label for="phoneNumber">Phone Number:</label></td>
-                    <td><input type="tel" id="phoneNumber" name="phoneNumber"></td>
+                    <td><input type="tel" id="phoneNumber" name="phoneNumber" value="+8801"></td>
                 </tr>
                 <tr>
                     <td><label for="email">Email:</label></td>
-                    <td><input type="email" id="email" name="email"></td>
+                    <td><input type="email" id="email" name="email" placeholder="sarker@gmail.com"></td>
                 </tr>
                 <tr>
                     <td><label for="dob">Date of Birth:</label></td>
@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <td><label for="address">Address:</label></td>
-                    <td><input type="text" id="address" name="address"></td>
+                    <td><input type="text" id="address" name="address" placeholder="Type your address"></td>
                 </tr>
                 <tr>
                     <td><label for="nationality">Nationality:</label></td>
@@ -86,7 +86,7 @@
                 </tr>
                 <tr>
                     <td><label for="idNumber">Identification Number:</label></td>
-                    <td><input type="text" id="idNumber" name="idNumber"></td>
+                    <td><input type="text" id="idNumber" name="idNumber" placeholder="NID Number" required></td>
                 </tr>
             </table>
         </fieldset>
@@ -95,7 +95,16 @@
             <table>
                 <tr>
                     <td><label for="make">Vehicle Make:</label></td>
-                    <td><input type="text" id="make" name="make"></td>
+                    <td>
+                    <select id="make" name="make">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="honda">Honda</option>
+                    </select>
+                </td>
                 </tr>
                 <tr>
                     <td><label for="model">Vehicle Model:</label></td>
