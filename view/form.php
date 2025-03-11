@@ -5,7 +5,6 @@
 </head>
 <body>
 
-<h2 align="center">WELCOME TO AUTO DRIVE</h2><br>
 <h3>Vehicle Registration Form:</h3>
 
 <form action="action_page.php" method="post" target="_blank">
