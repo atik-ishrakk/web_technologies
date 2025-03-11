@@ -6,12 +6,12 @@
     <title>Admin Panel</title>
 </head>
 <body>
-    <h1>Admin Panel - Vehicle Registration</h1>
-    <form action="Admin_action.php" method="post">
+    <h3>Admin Panel</h3>
+    <form action="Admin_action.php" method="post" >
         
 
         <!-- User Management -->
-        <h2 id="user-management">User Management</h2>
+        <h4 id="user-management">User Management</h4>
         <fieldset>
             <legend>Create User</legend>
             <table>
@@ -37,7 +37,7 @@
         </fieldset>
 
         <!-- Vehicle Registration -->
-        <h2 id="vehicle-registration">Vehicle Registration</h2>
+        <h4 id="vehicle-registration">Vehicle Registration</h4>
         <fieldset>
             <legend>Owner Details</legend>
             <table>
@@ -108,23 +108,23 @@
                 </tr>
                 <tr>
                     <td><label for="model">Vehicle Model:</label></td>
-                    <td><input type="text" id="model" name="model"></td>
+                    <td><input type="text" id="model" name="model" placeholder="Model Name"></td>
                 </tr>
                 <tr>
                     <td><label for="year">Year of Manufacture:</label></td>
-                    <td><input type="number" id="year" name="year"></td>
+                    <td><input type="number" id="year" name="year" placeholder="YYYY"></td>
                 </tr>
                 <tr>
                     <td><label for="color">Vehicle Color:</label></td>
-                    <td><input type="text" id="color" name="color"></td>
+                    <td><input type="text" id="color" name="color" placeholder="Red,Black,White..."></td>
                 </tr>
                 <tr>
                     <td><label for="engineNumber">Engine Number:</label></td>
-                    <td><input type="text" id="engineNumber" name="engineNumber"></td>
+                    <td><input type="text" id="engineNumber" name="engineNumber" placeholder="Engine No."></td>
                 </tr>
                 <tr>
                     <td><label for="chassisNumber">Chassis Number:</label></td>
-                    <td><input type="text" id="chassisNumber" name="chassisNumber"></td>
+                    <td><input type="text" id="chassisNumber" name="chassisNumber" placeholder="Chasis No."></td>
                 </tr>
                 <tr>
                     <td><label for="vin">Vehicle Identification Number (VIN):</label></td>
@@ -145,7 +145,7 @@
             <table>
                 <tr>
                     <td><label for="vehicleType">Vehicle Type:</label></td>
-                    <td><input type="text" id="vehicleType" name="vehicleType"></td>
+                    <td><input type="text" id="vehicleType" name="vehicleType"placeholder="EV/Fuel Based"></td>
                 </tr>
                 <tr>
                     <td><label for="regNumber">Registration Number:</label></td>
@@ -182,7 +182,7 @@
             <table>
                 <tr>
                     <td><label for="previousOwner">Previous Owner:</label></td>
-                    <td><input type="text" id="previousOwner" name="previousOwner"></td>
+                    <td><input type="text" id="previousOwner" name="previousOwner" placeholder="If available"></td>
                 </tr>
                 <tr>
                     <td><label for="loanApplied">Loan Applied:</label></td>
