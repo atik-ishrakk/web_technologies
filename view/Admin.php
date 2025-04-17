@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+    <link rel="stylesheet" href="../CSS/Admin.css">
+
 </head>
+
 <body>
     <h3>Admin Panel</h3>
-    <form action="Admin_action.php" method="post" >
-        
+    <form action="Admin_action.php" method="post" onsubmit="return validateForm()">
+
 
         <!-- User Management -->
         <h4 id="user-management">User Management</h4>
@@ -17,23 +21,32 @@
             <table>
                 <tr>
                     <td><label for="username">Username:</label></td>
-                    <td><input type="text" id="username" name="username" placeholder="Soumik Sarker" required></td>
+                    <td><input type="text" id="username" name="username" placeholder="Soumik Sarker"
+                            onblur="validateUsername(this)">
+                        <span id="usernameError" class="error"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="password">Password:</label></td>
-                    <td><input type="password" id="password" name="password" placeholder="Ss1@" required></td>
+                    <td><input type="password" id="password" name="password" placeholder="Ss1@"
+                            onblur="validatePassword(this)">
+                        <span id="passwordError" class="error"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="role">Role:</label></td>
                     <td>
-                        <select id="role" name="role">
+                        <select id="role" name="role" onchange="if(this.value == '') alert('Please select a role.')">
+                            <option value="">Select role</option>
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
                         </select>
+                        <span id="roleError" class="error"></span>
                     </td>
                 </tr>
             </table>
             <input type="submit" value="Create User">
+
         </fieldset>
 
         <!-- Vehicle Registration -->
@@ -43,7 +56,9 @@
             <table>
                 <tr>
                     <td><label for="firstName">First Name:</label></td>
-                    <td><input type="text" id="firstName" name="firstName" placeholder="Soumik"></td>
+                    <td><input type="text" id="firstName" name="firstName" placeholder="Soumik">
+
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="lastName">Last Name:</label></td>
@@ -51,15 +66,23 @@
                 </tr>
                 <tr>
                     <td><label for="phoneNumber">Phone Number:</label></td>
-                    <td><input type="tel" id="phoneNumber" name="phoneNumber" value="+8801"></td>
+                    <td colspan="2"><input type="tel" id="phoneNumber" name="phoneNumber" value="+8801"
+                            onblur="validatePhone(this)">
+                        <span id="phoneError" class="error"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="email">Email:</label></td>
-                    <td><input type="email" id="email" name="email" placeholder="sarker@gmail.com"></td>
+                    <td colspan="2"><input type="email" id="email" name="email" placeholder="sarker@gmail.com"
+                            onblur="validateEmail(this)">
+                        <span id="emailError" class="error"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="dob">Date of Birth:</label></td>
-                    <td><input type="date" id="dob" name="dob"></td>
+                    <td colspan="2"><input type="date" id="dob" name="dob" onchange="validateDOB(this)">
+                        <span id="dobError" class="error"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="gender">Gender:</label></td>
@@ -86,7 +109,10 @@
                 </tr>
                 <tr>
                     <td><label for="idNumber">Identification Number:</label></td>
-                    <td><input type="text" id="idNumber" name="idNumber" placeholder="NID Number" required></td>
+                    <td colspan="2"><input type="text" id="idNumber" name="idNumber" placeholder="NID Number"
+                            onblur="validateNID(this)">
+                        <span id="nidError" class="error"></span>
+                    </td>
                 </tr>
             </table>
         </fieldset>
@@ -96,15 +122,15 @@
                 <tr>
                     <td><label for="make">Vehicle Make:</label></td>
                     <td>
-                    <select id="make" name="make">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                        <option value="toyota">Toyota</option>
-                        <option value="honda">Honda</option>
-                    </select>
-                </td>
+                        <select id="make" name="make">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                            <option value="toyota">Toyota</option>
+                            <option value="honda">Honda</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="model">Vehicle Model:</label></td>
@@ -112,7 +138,9 @@
                 </tr>
                 <tr>
                     <td><label for="year">Year of Manufacture:</label></td>
-                    <td><input type="number" id="year" name="year" placeholder="YYYY"></td>
+                    <td colspan="2"><input type="number" id="year" name="year" placeholder="YYYY" onblur="validateYear(this)">
+                        <span id="yearError" class="error"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="color">Vehicle Color:</label></td>
@@ -145,7 +173,7 @@
             <table>
                 <tr>
                     <td><label for="vehicleType">Vehicle Type:</label></td>
-                    <td><input type="text" id="vehicleType" name="vehicleType"placeholder="EV/Fuel Based"></td>
+                    <td><input type="text" id="vehicleType" name="vehicleType" placeholder="EV/Fuel Based"></td>
                 </tr>
                 <tr>
                     <td><label for="regNumber">Registration Number:</label></td>
@@ -153,15 +181,20 @@
                 </tr>
                 <tr>
                     <td><label for="insuranceProvider">Insurance Provider:</label></td>
-                    <td><input type="text" id="insuranceProvider" name="insuranceProvider"></td>
-                </tr>
-                <tr>
-                    <td><label for="policyNumber">Insurance Policy Number:</label></td>
-                    <td><input type="text" id="policyNumber" name="policyNumber"></td>
-                </tr>
-                <tr>
-                    <td><label for="insuranceExpiry">Insurance Expiry Date:</label></td>
-                    <td><input type="date" id="insuranceExpiry" name="insuranceExpiry"></td>
+                    <td><input type="text" id="insuranceProvider" name="insuranceProvider">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="policyNumber">Insurance Policy Number:</label></td>
+                        <td><input type="text" id="policyNumber" name="policyNumber"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="insuranceExpiry">Insurance Expiry Date:</label></td>
+                        <td colspan="2"><input type="date" id="insuranceExpiry" name="insuranceExpiry" onchange="validateInsuranceDate">
+
+                        <span id="insuranceError" class="error"></span>
+                            
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="licensePlate">License Plate Number:</label></td>
@@ -210,5 +243,8 @@
         <input type="submit" value="Submit">
     </form>
 
+    <script src="../JavaScript/A.js"></script>
+
 </body>
+
 </html>
