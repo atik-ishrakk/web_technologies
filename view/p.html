@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script>
+        function validateUsername(input) {
+            const error = document.getElementById("usernameError");
+            if (input.value.length < 3) {
+                error.innerText = "Username must be at least 3 characters.";
+            } else {
+                error.innerText = "";
+            }
+        }
+
+        function validatePassword(input) {
+            const error = document.getElementById("passwordError");
+            const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{4,}$/;
+            if (!regex.test(input.value)) {
+                error.innerText = "Password must include a letter, a number and a special character.";
+            } else {
+                error.innerText = "";
+            }
+        }
+
+        function validateEmail(input) {
+            const error = document.getElementById("emailError");
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(input.value)) {
+                error.innerText = "Invalid email format.";
+            } else {
+                error.innerText = "";
+            }
+        }
+
+        function validatePhone(input) {
+            const error = document.getElementById("phoneError");
+            const regex = /^\+8801[3-9][0-9]{8}$/;
+            if (!regex.test(input.value)) {
+                error.innerText = "Enter a valid Bangladeshi phone number.";
+            } else {
+                error.innerText = "";
+            }
+        }
+
+        function validateDOB(input) {
+            const dob = new Date(input.value);
+            const today = new Date();
+            if (dob >= today) {
+                alert("Date of birth cannot be in the future.");
+                input.value = "";
+            }
+        }
+
+        function validateNID(input) {
+            if (input.value.length < 10 || input.value.length > 17) {
+                alert("NID number should be between 10 to 17 digits.");
+            }
+        }
+
+        function validateYear(input) {
+            const year = parseInt(input.value);
+            const currentYear = new Date().getFullYear();
+            if (year < 1900 || year > currentYear) {
+                alert("Enter a valid manufacture year.");
+                input.value = "";
+            }
+        }
+
+        function validateInsuranceDate(input) {
+            const expiry = new Date(input.value);
+            const today = new Date();
+            if (expiry <= today) {
+                alert("Insurance expiry must be a future date.");
+                input.value = "";
+            }
+        }
+    </script>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h3>Admin Panel</h3>
+    <form action="Admin_action.php" method="post" >
+        <h4 id="user-management">User Management</h4>
+        <fieldset>
+            <legend>Create User</legend>
+            <table>
+                <tr>
+                    <td><label for="username">Username:</label></td>
+                    <td><input type="text" id="username" name="username" placeholder="Soumik Sarker" onblur="validateUsername(this)"></td>
+                    <td><div id="usernameError" class="error"></div></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="password" id="password" name="password" placeholder="Ss1@" onblur="validatePassword(this)"></td>
+                    <td><div id="passwordError" class="error"></div></td>
+                </tr>
+                <tr>
+                    <td><label for="role">Role:</label></td>
+                    <td>
+                        <select id="role" name="role" onchange="if(this.value==='') alert('Please select a role.')">
+                            <option value="">Select role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </td>
+                    <td><div id="roleError" class="error"></div></td>
+                </tr>
+            </table>
+            <input type="submit" value="Create User">
+        </fieldset>
+
+        <!-- Vehicle Registration -->
+        <h4 id="vehicle-registration">Vehicle Registration</h4>
+        <fieldset>
+            <legend>Owner Details</legend>
+            <table>
+                <!-- Other fields remain unchanged -->
+                <tr>
+                    <td><label for="phoneNumber">Phone Number:</label></td>
+                    <td colspan="2"><input type="tel" id="phoneNumber" name="phoneNumber" value="+8801" onblur="validatePhone(this)">
+                    <span id="phoneError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td colspan="2"><input type="email" id="email" name="email" placeholder="sarker@gmail.com" onblur="validateEmail(this)">
+                    <span id="emailError" class="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dob">Date of Birth:</label></td>
+                    <td><input type="date" id="dob" name="dob" onchange="validateDOB(this)"></td>
+                </tr>
+                <tr>
+                    <td><label for="idNumber">Identification Number:</label></td>
+                    <td><input type="text" id="idNumber" name="idNumber" placeholder="NID Number" required onblur="validateNID(this)"></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Vehicle Details</legend>
+            <table>
+                <tr>
+                    <td><label for="year">Year of Manufacture:</label></td>
+                    <td><input type="number" id="year" name="year" placeholder="YYYY" onblur="validateYear(this)"></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Registration Details</legend>
+            <table>
+                <tr>
+                    <td><label for="insuranceExpiry">Insurance Expiry Date:</label></td>
+                    <td><input type="date" id="insuranceExpiry" name="insuranceExpiry" onchange="validateInsuranceDate(this)"></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
