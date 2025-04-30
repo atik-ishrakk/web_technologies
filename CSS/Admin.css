@@ -23,7 +23,7 @@
     }
 
     form {
-        max-width: 500px;
+        max-width: 715px;
         margin: 0 auto;
         background: #ffffff;
         padding: 25px;
@@ -95,7 +95,7 @@
         color: #888;
         font-style: italic;
     }
-    .error{
+    span{
         color: red;
             font-size: 0.9em;
     }
