@@ -1,3 +1,8 @@
+<!-- <?php
+ include "../control/Admin_action.php"; // If there's any error, just provide warning and go to the nxt part
+// require '../control/Admin_action.php';  If there's any error, just provide fatal error 
+?> -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,16 +10,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="../CSS/Admin.css">
+    <link rel="stylesheet" href="../css/Admin.css">
 
 </head>
 
 <body>
+
     <h3>Admin Panel</h3>
-    <form action="Admin_action.php" method="post" onsubmit="return validateForm()">
+    <form method="post" action="">  
+  
 
-
-        <!-- User Management -->
+       <!-- User Management -->
         <h4 id="user-management">User Management</h4>
         <fieldset>
             <legend>Create User</legend>
@@ -23,14 +29,15 @@
                     <td><label for="username">Username:</label></td>
                     <td><input type="text" id="username" name="username" placeholder="Soumik Sarker"
                             onblur="validateUsername(this)">
-                        <span id="usernameError" class="error"></span>
+                        <span id="usernameError" class="error"><?php echo $usernameError; ?></span>
+                        
                     </td>
                 </tr>
                 <tr>
                     <td><label for="password">Password:</label></td>
                     <td><input type="password" id="password" name="password" placeholder="Ss1@"
                             onblur="validatePassword(this)">
-                        <span id="passwordError" class="error"></span>
+                        <span id="passwordError" class="error"><?php echo $passwordError; ?></span>
                     </td>
                 </tr>
                 <tr>
@@ -41,7 +48,7 @@
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
                         </select>
-                        <span id="roleError" class="error"></span>
+                        <span id="roleError" class="error"><?php echo $roleError; ?></span>
                     </td>
                 </tr>
             </table>
@@ -56,32 +63,35 @@
             <table>
                 <tr>
                     <td><label for="firstName">First Name:</label></td>
-                    <td><input type="text" id="firstName" name="firstName" placeholder="Soumik">
+                    <td colspan="2"><input type="text" id="firstName" name="firstname" placeholder="Soumik">
+                    <span class = 'error'><?php echo $firstNameError; ?></span>
 
                     </td>
                 </tr>
                 <tr>
                     <td><label for="lastName">Last Name:</label></td>
-                    <td><input type="text" id="lastName" name="lastName" placeholder="Sarker"></td>
+                    <td colspan="2"><input type="text" id="lastName" name="lastname" placeholder="Sarker">
+                    <span class = 'error'><?php echo $lastNameError; ?></span>
+                </td>
                 </tr>
                 <tr>
                     <td><label for="phoneNumber">Phone Number:</label></td>
                     <td colspan="2"><input type="tel" id="phoneNumber" name="phoneNumber" value="+8801"
                             onblur="validatePhone(this)">
-                        <span id="phoneError" class="error"></span>
+                        <span id="phoneError" class="error"><?php echo $phoneNumberError; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="email">Email:</label></td>
                     <td colspan="2"><input type="email" id="email" name="email" placeholder="sarker@gmail.com"
                             onblur="validateEmail(this)">
-                        <span id="emailError" class="error"></span>
+                        <span id="emailError" class="error"><?php echo $emailError; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="dob">Date of Birth:</label></td>
                     <td colspan="2"><input type="date" id="dob" name="dob" onchange="validateDOB(this)">
-                        <span id="dobError" class="error"></span>
+                        <span id="dobError" class="error"><?php echo $dobError; ?></span>
                     </td>
                 </tr>
                 <tr>
@@ -92,6 +102,7 @@
                             <option value="female">Female</option>
                             <option value="other">Other</option>
                             <option value="preferNotToSay">Prefer not to say</option>
+                            <span class = 'error'><?php echo $genderError; ?></span>
                         </select>
                     </td>
                 </tr>
@@ -241,9 +252,12 @@
             </table>
         </fieldset>
         <input type="submit" value="Submit">
+
+    
+
     </form>
 
-    <script src="../JavaScript/A.js"></script>
+    <!-- <script src="../javaScript/A.js"></script> -->
 
 </body>
 
