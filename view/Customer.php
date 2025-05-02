@@ -7,7 +7,7 @@
 
 <h3>Vehicle Registration Form:</h3>
 
-<form action="action_page.php" method="post" target="_blank">
+<form action="../control/Customer_action.php" method="post" target="_blank">
   
   <fieldset>
     <legend>Owner Details</legend>
