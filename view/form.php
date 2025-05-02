@@ -14,11 +14,11 @@
     <table>
       <tr>
         <td><label for="fname">First Name:</label></td>
-        <td><input type="text" id="fname" name="fname" placeholder="Atik" required></td>
+        <td><input type="text" id="fname" name="fname" placeholder="Soumik" required></td>
       </tr>
       <tr>
         <td><label for="lname">Last Name:</label></td>
-        <td><input type="text" id="lname" name="lname" placeholder="Ishrak" required></td>
+        <td><input type="text" id="lname" name="lname" placeholder="Sarker" required></td>
       </tr>
       <tr>
         <td><label for="phone">Phone Number:</label></td>
