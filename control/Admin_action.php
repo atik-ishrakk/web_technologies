@@ -14,38 +14,39 @@
             $usernameError= '* UserName is required';
         }
         else{
-            $username=validate_input($_POST["username"]);
+            $username=validate_input($_POST["usern6ame"]);
         }
 // valildate password
         if(empty($_POST['password'])){
             $passwordError='* Password is required';
         }
+
         else{
             $password =validate_input($_POST['password']);
         }
+        
+        
 // Validate Role
         if (isset($_POST["role"])) {
             $role = validate_input($_POST["role"]);
             $allowedRole = ['admin', 'user'];
             if (!in_array($role, $allowedRole)) {
-                $roleError = "* Invalid role selected";
-                $role = '';
+                $roleError = "* Invalid role";
+                // $role = '';
             }
-        } else {
-            $roleError = "* Role is required";
-        }
+        } 
         
 
 // validate firstname
         if(empty($_POST['firstname'])){
-            $firstNameError='Firstname is required'; 
+            $firstNameError='* Firstname is required'; 
         }
         else{
             $firstName=validate_input($_POST["firstname"]);
         }
 // validate lastname
         if(empty($_POST['lastname'])){
-            $lastNameError='Lastname is required'; 
+            $lastNameError='* Lastname is required'; 
         }
         else{
             $lastName=validate_input($_POST["lastname"]);
@@ -53,19 +54,19 @@
     
 // validate dob
         if (empty($_POST["dob"])) {
-            $dobError = "Date of birth is required.";
+            $dobError = "* Date of birth is required.";
         } else {
             $dob = validate_input($_POST["dob"]);
             $today = date("Y-m-d");
             if ($dob >= $today) {
-                $dob = "Date of birth must be in the past.";
+                $dobError = " Date of birth must be in the past.";
             }
         }  
 // Validate Phone
         $phoneNumber = validate_input($_POST["phoneNumber"]);
         if (!preg_match("/^\+8801[3-9][0-9]{8}$/", $phoneNumber)) {
-            $phoneNumber = "";
-            $phoneNumberError = "Invalid Bangladeshi phone number format.";
+            $phoneNumberError = "* Invalid Bangladeshi phone number format.";
+            // $phoneNumber = "";
         }
      
 // Validate Email
@@ -79,36 +80,44 @@
     }
 
 // Validate Gender
-    $genderError = "Gender is required.";
         
     $gender = validate_input($_POST["gender"]);
     $allowedGenders = ['male', 'female', 'other', 'preferNotToSay'];
     if (!in_array($gender, $allowedGenders)) {
-        $gender = "Invalid gender selected.";
+        $genderError = "Invalid gender selected.";
+        // $gender='';
     }
-}
- 
-  
+    else{
+        $gender = validate_input($_POST['gender']);
+    }
 
-    echo '<h2> Form Submitted! <h2>';
-    echo '<br>';
-    echo `Username:.$username`;
-    echo '<br>';
-    echo 'Password:'.$password;
-    echo '<br>';
-    echo 'Role:'.$role;
-    echo '<br>';
-    echo 'Firstname:'.$firstName;
-    echo '<br>';
-    echo 'Lastname:'.$lastName;
-    echo '<br>';
-    echo 'Date of birth:'.$dob;
-    echo '<br>';
-    echo 'Phone-no:'.$phoneNumber;
-    echo '<br>';
-    echo 'Email:'.$email;
-    echo '<br>';
-    echo 'Gender:'.$gender;
-    echo '<br>';
+    // validate File
+
+    if (empty($_FILES['serviceHistoryFile']['name'])) {
+        echo 'No file uploaded';
+    } else {
+        $uploadDir = "../uploads/";
+        $fileName = time() ."-" .$_FILES['serviceHistoryFile']['name'];
+        $targetPath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($_FILES['serviceHistoryFile']['tmp_name'], $targetPath)) {
+            echo $_FILES['serviceHistoryFile']['name'];
+            }   
+        }
+    
+    }
+
+  
+    // echo '<h2> Form Submitted! <h2>';
+
+    // echo `Username:. $username` . '<br>';
+    // echo 'Password:'. $password . '<br>';
+    // echo 'Role:'. $role . '<br>';
+    // echo 'Firstname:'. $firstName . '<br>';
+    // echo 'Lastname:'. $lastName . '<br>';
+    // echo 'Date of birth:'. $dob . '<br>';
+    // echo 'Phone-no:'. $phoneNumber . '<br>';
+    // echo 'Email:'. $email . '<br>';
+    // echo 'Gender:'. $gender . '<br>';
     
 ?>
