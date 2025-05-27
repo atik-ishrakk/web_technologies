@@ -1,0 +1,101 @@
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        background-color: #f4f6f8;
+        color: #1c1c1c;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h3 {
+        background-color: #002244;
+        color: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    h4 {
+        color: #002244;
+        border-left: 6px solid #c8102e;
+        padding-left: 10px;
+        margin-top: 40px;
+    }
+
+    form {
+        max-width: 715px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    fieldset {
+        border: 2px solid #002244;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    legend {
+        font-weight: bold;
+        color: red;
+        padding: 0 10px;
+    }
+
+    table {
+        width: 100%;
+        border-spacing: 15px;
+    }
+
+    td {
+        vertical-align: top;
+    }
+
+    label {
+        font-weight: 500;
+        color: #333333;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    input[type="file"],
+    select {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #c8102e;
+        color: white;
+        border: none;
+        margin-left: 40%;
+        padding: 12px 20px;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #a10d24;
+    }
+
+    ::placeholder {
+        color: #888;
+        font-style: italic;
+    }
+    span{
+        color: red;
+            font-size: 0.9em;
+    }
