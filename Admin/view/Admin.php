@@ -30,17 +30,12 @@
                 <tr>
                     <td><label for="username">Username:</label></td>
                     <td><input type="text" id="username" name="username" placeholder="Soumik Sarker"
-                            onblur="validateUsername(this)">
-                        <span id="usernameError" class="error"><?php echo $usernameError; ?></span>
-                        
-                    </td>
+                    ></td>
                 </tr>
                 <tr>
                     <td><label for="password">Password:</label></td>
                     <td><input type="password" id="password" name="password" placeholder="Ss1@"
-                            onblur="validatePassword(this)">
-                        <span id="passwordError" class="error"><?php echo $passwordError; ?></span>
-                    </td>
+                    ></td>
                 </tr>
                 <tr>
                     <td><label for="role">Role:</label></td>
@@ -53,29 +48,7 @@
                         <span id="roleError" class="error"><?php echo $roleError; ?></span>
                     </td>
                 </tr>
-            </table>
-            <input type="submit" value="Create User">
 
-        </fieldset>
-
-        <!-- Vehicle Registration -->
-        <h4 id="vehicle-registration">Vehicle Registration</h4>
-        <fieldset>
-            <legend>Owner Details</legend>
-            <table>
-                <tr>
-                    <td><label for="firstName">First Name:</label></td>
-                    <td colspan="2"><input type="text" id="firstName" name="firstname" placeholder="Soumik">
-                    <span class = 'error'><?php echo $firstNameError; ?></span>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="lastName">Last Name:</label></td>
-                    <td colspan="2"><input type="text" id="lastName" name="lastname" placeholder="Sarker">
-                    <span class = 'error'><?php echo $lastNameError; ?></span>
-                </td>
-                </tr>
                 <tr>
                     <td><label for="phoneNumber">Phone Number:</label></td>
                     <td colspan="2"><input type="tel" id="phoneNumber" name="phoneNumber" value="+8801"
@@ -131,7 +104,11 @@
                     </td>
                 </tr>
             </table>
+            <input type="submit" value="Create User">
+
         </fieldset>
+
+        
         <fieldset>
             <legend>Vehicle Details</legend>
             <table>
