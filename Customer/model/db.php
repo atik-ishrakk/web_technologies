@@ -1,25 +1,30 @@
 <?php
-include "../control/action_page.php";
 $servername = "localhost";
 $username = "atik";
 $password = "123";
-$dbname = "vreg";
+$database = "vreg";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+$conn = mysqli_connect($servername, $username, $password, $database);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "INSERT INTO users(fname, lname, phone, email, gender, address)
-VALUES ('$fname', '$lname', '$phone', '$email', '$gender', '$address')";
+function loginUser($conn, $table, $email) {
+    // ✅ Use the passed $conn, don't reconnect inside the function
+    $query = "SELECT * FROM $table WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $query);
 
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
+    if (!$stmt) {
+        die("Prepare failed: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+    
+    return $result;
 }
-
-$conn->close();
 ?>

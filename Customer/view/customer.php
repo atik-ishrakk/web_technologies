@@ -1,11 +1,11 @@
 <?php 
-include "../control/action_pagee.php"; 
+include "../control/action_page.php"; 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Auto Drive</title>
-    <link rel="stylesheet" href="../css/formstyle.css">
+    <link rel="stylesheet" href="../css/form.css">
 </head>
 <body>
     <div class="container">
@@ -14,7 +14,7 @@ include "../control/action_pagee.php";
         <div class="success-message" id="success-message">
             <?php echo $successMessage; ?>
         </div>
-    <div><form id="form" action="" method="post" autocomplete="on" enctype="multipart/form-data">
+    <div><form id="customer" action="" method="post" autocomplete="on" enctype="multipart/form-data">
         <fieldset>
             <legend>Owner Details</legend>
             <table>

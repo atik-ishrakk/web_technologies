@@ -1,79 +1,91 @@
 <?php
+include '../model/db.php';
 
-$fname=$lname=$phone=$email=$gender=$address="";
-$fnameError = $lnameError = $phoneError = $emailError = $genderError = $addressError="";
+$fname = $lname = $phone = $email = $gender = $address = "";
+$fnameError = $lnameError = $phoneError = $emailError = $genderError = $addressError = $fileError = "";
 $successMessage = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["fname"])) {
-    if (empty($_POST["fname"])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['Submit'])) {
+    $fname = trim($_POST['fname'] ?? '');
+    $lname = trim($_POST['lname'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $gender = $_POST['gender'] ?? '';
+    $address = trim($_POST['address'] ?? '');
+
+    $isValid = true;
+
+    if ($fname === '') {
         $fnameError = "First name is required.";
-    } elseif (!preg_match("/^[A-Za-z]+$/", $_POST["fname"])) {
-        $fnameError = "Only letters are allowed.";
-    } else {
-        $fname = $_POST["fname"];
+        $isValid = false;
     }
-
-    if (empty($_POST["lname"])) {
+    if ($lname === '') {
         $lnameError = "Last name is required.";
-    } elseif (!preg_match("/^[A-Za-z]+$/", $_POST["lname"])) {
-        $lnameError = "Only letters are allowed.";
-    } else {
-        $lname = $_POST["lname"];
+        $isValid = false;
     }
-
-    if (empty($_POST["phone"])) {
+    if ($phone === '') {
         $phoneError = "Phone number is required.";
-    } elseif (!preg_match("/^\+8801\d{9}$/", $_POST["phone"])) {
-        $phoneError = "Phone number must be in the format +8801XXXXXXXXX.";
-    } else {
-        $phone = $_POST["phone"];
+        $isValid = false;
     }
-    
-    if (empty($_POST["email"])) {
-        $emailError = "Email is required.";
-    } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-        $emailError = "Invalid email format.";
-    } else {
-        $email = $_POST["email"];
+    if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailError = "Valid email is required.";
+        $isValid = false;
     }
-
-
-    if (empty($_POST["gender"])) {
-        $genderError = "Gender is required.";
-    } else {
-        $gender = $_POST["gender"];
+    if (!in_array($gender, ['male', 'female', 'other', 'prefer-not-to-say'])) {
+        $genderError = "Please select a gender.";
+        $isValid = false;
     }
-
-    if (empty($_POST["address"])) {
+    if ($address === '') {
         $addressError = "Address is required.";
-    } else {
-        $address = $_POST["address"];
+        $isValid = false;
     }
 
-    if (isset($_POST['clear'])) {
-        $fname = $lname = $phone = $email = $gender = $address = "";
-        $fnameError = $lnameError = $phoneError = $emailError = $genderError = $addressError="";
-        $successMessage = "";
-    }
+    // Handle file upload
+    $uploadDir = '../upload/';
+    $uploadedFilePath = "";
+    if (isset($_FILES['myfile']) && $_FILES['myfile']['error'] == 0) {
+        $fileName = basename($_FILES['myfile']['name']);
+        $fileTmp = $_FILES['myfile']['tmp_name'];
+        $targetPath = $uploadDir . $fileName;
 
-    if (!$fnameError && !$lnameError && !$phoneError && !$emailError && !$genderError && !$addressError &&
-     !empty($fname) && !empty($lname) && !empty($phone) && !empty($email) && !empty($gender) && !empty($address)) {
-        $successMessage.= "Your Form is submitted successfully!";
-        $successMessage.= "<br>First Name: $fname";
-        $successMessage.= "<br>Last Name: $lname";
-        $successMessage.= "<br>Phone: $phone";
-        $successMessage.= "<br>Email: $email";
-        $successMessage.= "<br>Address: $address";
-    }
-    
-    if($_FILES["myfile"]["name"]==""){
-        echo "NO file uploaded";
-    }
-    else{
-        if (move_uploaded_file($_FILES["myfile"]["tmp_name"], "../upload/" . basename($_FILES["myfile"]["name"]))) {
-            $successMessage.= "<br>File uploaded successfully.";
+        // Simple validation
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'pdf'];
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowedTypes)) {
+            $fileError = "Only JPG, JPEG, PNG, and PDF files are allowed.";
+            $isValid = false;
+        } elseif (!move_uploaded_file($fileTmp, $targetPath)) {
+            $fileError = "File upload failed.";
+            $isValid = false;
         } else {
-            $successMessage.= "<br>File uploading failed.";
+            $uploadedFilePath = $targetPath;
         }
+    } else {
+        $fileError = "Please upload a file.";
+        $isValid = false;
     }
+
+    if (isset($_FILES["myfile"]) && $_FILES["myfile"]["error"] == 0) {
+        $filename = basename($_FILES["myfile"]["name"]);
+        $target = "../uploads/" . $filename;
+        move_uploaded_file($_FILES["myfile"]["tmp_name"], $target);
+    }
+
+    // Insert into database
+    $stmt = $conn->prepare("INSERT INTO users (fname, lname, phone, email, gender, address, file_path) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $fname, $lname, $phone, $email, $gender, $address, $filename);
+
+    if ($stmt->execute()) {
+        $successMessage = "Registration successful!";
+        $_SESSION["email"] = $email;  // store email for profile
+    } else {
+        $successMessage = "Error: " . $stmt->error;
+    }
+    $stmt->close();
+    } elseif (isset($_POST['clear'])) {
+    $fname = $lname = $phone = $email = $gender = $address = "";
+    $fnameError = $lnameError = $phoneError = $emailError = $genderError = $addressError = $fileError = "";
+    $successMessage = "";
 }
+?>
