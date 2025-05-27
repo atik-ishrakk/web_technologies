@@ -1,9 +1,10 @@
 <?php 
-session_start(); // ✅ Required for using $_SESSION
+session_start(); 
+include "../model/db.php";
 
 $usernameError = $passwordError = $roleError = $firstNameError = $lastNameError = $phoneNumberError = $emailError = $dobError = $genderError = "";
 
-$username = $password = $role = $firstName = $lastName = $phoneNumber = $email = $dob = $gender = "";
+$username = $password = $role = $firstName = $lastName = $phoneNumber = $email = $dob = $gender = $address = $nationality = $occupation = $nid = $file ="";
 
 function validate_input($data){
     return htmlspecialchars(stripslashes(trim($data)));
@@ -34,19 +35,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Firstname
-    if (empty($_POST['firstname'])) {
-        $firstNameError = '* Firstname is required'; 
-    } else {
-        $firstName = validate_input($_POST["firstname"]);
-    }
+    // // Firstname
+    // if (empty($_POST['firstname'])) {
+    //     $firstNameError = '* Firstname is required'; 
+    // } else {
+    //     $firstName = validate_input($_POST["firstname"]);
+    // }
 
-    // Lastname
-    if (empty($_POST['lastname'])) {
-        $lastNameError = '* Lastname is required'; 
-    } else {
-        $lastName = validate_input($_POST["lastname"]);
-    }
+    // // Lastname
+    // if (empty($_POST['lastname'])) {
+    //     $lastNameError = '* Lastname is required'; 
+    // } else {
+    //     $lastName = validate_input($_POST["lastname"]);
+    // }
 
     // DOB
     if (empty($_POST["dob"])) {
@@ -86,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+
     // File Upload
     if (!empty($_FILES['serviceHistoryFile']['name'])) {
         $uploadDir = "../uploads/";
@@ -97,40 +99,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // If no validation errors, store values in session
-    if (empty($usernameError) && empty($passwordError) && empty($roleError) && empty($firstNameError) && empty($lastNameError) && empty($phoneNumberError) && empty($emailError) && empty($dobError) && empty($genderError)) {
-        
+    $address = validate_input($_POST['address'] ?? '');
+    $nationality = validate_input($_POST['nationality'] ?? '');
+    $occupation = validate_input($_POST['occupation'] ?? '');
+    $nid = validate_input($_POST['idNumber'] ?? '');
+
+    if (empty($usernameError) && empty($passwordError) && empty($roleError) && empty($phoneNumberError) && empty($emailError) && empty($dobError) && empty($genderError)) {
+
         $_SESSION['user_data'] = [
             'username' => $username,
             'role' => $role,
-            'firstname' => $firstName,
-            'lastname' => $lastName,
             'phone' => $phoneNumber,
             'email' => $email,
             'dob' => $dob,
             'gender' => $gender
         ];
 
-       
-        if (!empty($_POST['username'])) {
+        if (!empty($username)) {
             setcookie("userInfo", 1, time() + (86400 * 30));
-            if(isset($_COOKIE['userInfo'])){
-                echo 'Welcome to my page';
-            }
-            else{
-                echo 'You have already visited to our webpage';
-            }
+            echo 'Welcome to my page';
         }
 
-        echo "<h2>Form Submitted Successfully!</h2>";
+        $conn = createConn();
+        if (insert($conn, $username, $password, $role, $phoneNumber, $email, $dob, $gender, $address, $nationality, $occupation, $nid, $file)) {
+            
+            // close for using javascript
+            ?>
+
+            <script type="text/javascript">alert("Data inserted successfully");</script>
+            
+            <?php
+            header("Location: ../view/login.php");
+            
+        } else {
+            
+            ?>
+
+            <script type="text/javascript">alert("Data inserted successfully");</script>
+            
+            <?php
+            header("Location: ../view/login.php");
+        }
+        closeConn($conn);
     } else {
-        
         $_SESSION['form_errors'] = [
             'usernameError' => $usernameError,
             'passwordError' => $passwordError,
             'roleError' => $roleError,
-            'firstNameError' => $firstNameError,
-            'lastNameError' => $lastNameError,
             'phoneNumberError' => $phoneNumberError,
             'emailError' => $emailError,
             'dobError' => $dobError,
@@ -138,4 +153,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
     }
 }
+
 ?>
