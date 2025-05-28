@@ -9,7 +9,7 @@ body {
 form {
   max-width: 400px;
   margin: 0 auto;
-  margin-top: 25%;
+  margin-top: 10%;
   background: #ffffff;
   padding: 25px;
   border-radius: 12px;
@@ -41,7 +41,8 @@ select {
 }
 
 input[type="submit"],
-input[type="reset"] {
+input[type="reset"],
+button {
   background-color: #c8102e;
   color: white;
   border: none;
