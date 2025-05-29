@@ -103,11 +103,19 @@ $row = mysqli_fetch_array($data);
                     <span id="nidError" class="error"></span>
                 </td>
             </tr>
+            <tr>
+                <td><label for="serviceHistory">Service History (attach file):</label></td>
+                <td><input type="file" id="file" name="file" value="<?php echo $row['file'] ?>"></td>
+            </tr>
+
+
         </table>
-        <center>
-            <input type="submit" name='update' value="Update">
-            <button type="button" onclick="window.location.href='../view/admin_panel.php'">Back</button>
+        <center><input type="submit" name="update" value="Update">
+            <!-- <button type="button" onclick="window.location.href='../view/admin_panel.php'">Back</button> -->
         </center>
+
+
+
 
     </fieldset>
 </form>
