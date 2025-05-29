@@ -15,7 +15,9 @@ if (isset($_POST['update'])) {
     $address = $_POST['address'];
     $nationality = $_POST['nationality'];
     $occupation = $_POST['occupation'];
-    $nid = $_POST['nid'];
+    $nid = $_POST['idNumber'];
+    $file = $_POST['file'];
+
 
     // Handle file upload if present
     $file = '';
