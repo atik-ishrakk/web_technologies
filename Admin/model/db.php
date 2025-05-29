@@ -43,12 +43,12 @@ function checkLogin($conn, $username, $password, $role)
     return mysqli_query($conn, $query);
 }
 
-function fetchData($conn, $username)
-{
-    $query = "SELECT * FROM user_registration where username=$username";
-    $data = mysqli_query($conn, $query);
-    return mysqli_num_rows($data);
-}
+//function fetchData($conn, $username)
+// {
+//     $query = "SELECT * FROM user_registration where username=$username";
+//     $data = mysqli_query($conn, $query);
+//     return mysqli_num_rows($data);
+// }
 
 
 ?>
