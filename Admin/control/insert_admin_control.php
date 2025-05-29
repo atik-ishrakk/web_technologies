@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dob = validate_input($_POST["dob"]);
         $today = date("Y-m-d");
         if ($dob >= $today) {
-            $dobError = " Date of birth must be in the past.";
+            $phoneNumberError = " Date of birth must be in the past.";
         }
     }
 
@@ -53,10 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $phoneNumberError = '* insert valid phone number.';
     } else {
         $phoneNum = $_POST['phoneNumber'];
-        $numericPhone = preg_replace("/\D/", "", $phoneNum); // Strip non-digits
+        $phoneNumber = preg_replace("/\D/", "", $phoneNum); // Strip non-digits
 
-        if (strlen($numericPhone) !== 11) {
-            echo 'Phone number must be exactly 11 digits.';
+        if (strlen($phoneNumber) !== 11) {
+            $dobError = '*Phone number must be exactly 11 digits.';
             exit();
         }
     }
@@ -82,13 +82,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // File Upload
-    if (!empty($_FILES['serviceHistoryFile']['name'])) {
+    if (!empty($_FILES['file']['name'])) {
         $uploadDir = "../uploads/";
-        $fileName = time() . "-" . basename($_FILES['serviceHistoryFile']['name']);
+        $fileName = time() . "-" . basename($_FILES['file']['name']);
         $targetPath = $uploadDir . $fileName;
 
-        if (move_uploaded_file($_FILES['serviceHistoryFile']['tmp_name'], $targetPath)) {
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $targetPath)) {
             $_SESSION['uploaded_file'] = $fileName;
+            $file = $fileName;
+            echo 'file uploaded successfully';
         }
     }
 
