@@ -1,5 +1,5 @@
 <?php
- include "../control/Admin_action.php"; // If there's any error, just provide warning and go to the nxt part
+include "../control/insert_admin_control.php"; // If there's any error, just provide warning and go to the nxt part
 // require '../control/Admin_action.php';  If there's any error, just provide fatal error 
 ?>
 
@@ -17,25 +17,20 @@
 <body>
 
     <h3>Admin Panel</h3>
-    <!-- <form method="post" action ="../control/Admin_action.php" enctype='multipart/form-data'>   -->
-    <form method='post' enctype='multipart/form-data' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ;?>">
-    <!-- <form method="post" action="" >   -->
-  
 
-       <!-- User Management -->
+    <form method='post' enctype='multipart/form-data' action="">
+        <!-- User Management -->
         <h4 id="user-management">User Management</h4>
         <fieldset>
             <legend>Create User</legend>
             <table>
                 <tr>
                     <td><label for="username">Username:</label></td>
-                    <td><input type="text" id="username" name="username" placeholder="Soumik Sarker"
-                    ></td>
+                    <td><input type="text" id="username" name="username" placeholder="Soumik Sarker"></td>
                 </tr>
                 <tr>
                     <td><label for="password">Password:</label></td>
-                    <td><input type="password" id="password" name="password" placeholder="Ss1@"
-                    ></td>
+                    <td><input type="password" id="password" name="password" placeholder="Ss1@"></td>
                 </tr>
                 <tr>
                     <td><label for="role">Role:</label></td>
@@ -51,7 +46,7 @@
 
                 <tr>
                     <td><label for="phoneNumber">Phone Number:</label></td>
-                    <td colspan="2"><input type="tel" id="phoneNumber" name="phoneNumber" value="+8801"
+                    <td colspan="2"><input type="text" id="phoneNumber" name="phoneNumber" placeholder="01XXXXXXXXX"
                             onblur="validatePhone(this)">
                         <span id="phoneError" class="error"><?php echo $phoneNumberError; ?></span>
                     </td>
@@ -71,14 +66,14 @@
                 </tr>
                 <tr>
                     <td><label for="gender">Gender:</label></td>
-                    <td colspan = '2'>
+                    <td colspan='2'>
                         <select id="gender" name="gender">
                             <option value="choose">Choose one</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="other">Other</option>
                             <option value="preferNotToSay">Prefer not to say</option>
-                            <span class = 'error'><?php echo $genderError; ?></span>
+                            <span class='error'><?php echo $genderError; ?></span>
                         </select>
                         <span id="genderError" class="error"><?php echo $genderError; ?></span>
 
@@ -108,7 +103,7 @@
 
         </fieldset>
 
-        
+
         <fieldset>
             <legend>Vehicle Details</legend>
             <table>
@@ -131,7 +126,8 @@
                 </tr>
                 <tr>
                     <td><label for="year">Year of Manufacture:</label></td>
-                    <td colspan="2"><input type="number" id="year" name="year" placeholder="YYYY" onblur="validateYear(this)">
+                    <td colspan="2"><input type="number" id="year" name="year" placeholder="YYYY"
+                            onblur="validateYear(this)">
                         <span id="yearError" class="error"></span>
                     </td>
                 </tr>
@@ -173,20 +169,21 @@
                     <td><input type="text" id="regNumber" name="regNumber"></td>
                 </tr>
                 <tr>
-                    <td><label for="insuranceProvider">Insurance Provider:</label></td>
+                    <td><label for="insuranceProvider">Insurance Provide4r:</label></td>
                     <td><input type="text" id="insuranceProvider" name="insuranceProvider">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="policyNumber">Insurance Policy Number:</label></td>
-                        <td><input type="text" id="policyNumber" name="policyNumber"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="insuranceExpiry">Insurance Expiry Date:</label></td>
-                        <td colspan="2"><input type="date" id="insuranceExpiry" name="insuranceExpiry" onchange="validateInsuranceDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="policyNumber">Insurance Policy Number:</label></td>
+                    <td><input type="text" id="policyNumber" name="policyNumber"></td>
+                </tr>
+                <tr>
+                    <td><label for="insuranceExpiry">Insurance Expiry Date:</label></td>
+                    <td colspan="2"><input type="date" id="insuranceExpiry" name="insuranceExpiry"
+                            onchange="validateInsuranceDate">
 
                         <span id="insuranceError" class="error"></span>
-                            
+
                     </td>
                 </tr>
                 <tr>
@@ -229,13 +226,13 @@
                 </tr>
                 <tr>
                     <td><label for="serviceHistory">Service History (attach file):</label></td>
-                    <td><input type="file" id="serviceHistoryFile" name="serviceHistoryFile"></td>
+                    <td><input type="file" id="file" name="file"></td>
                 </tr>
             </table>
         </fieldset>
         <input type="submit" value="Submit">
 
-    
+
 
     </form>
 

@@ -1,12 +1,13 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 include "../model/db.php";
 
 $usernameError = $passwordError = $roleError = $firstNameError = $lastNameError = $phoneNumberError = $emailError = $dobError = $genderError = "";
 
-$username = $password = $role = $firstName = $lastName = $phoneNumber = $email = $dob = $gender = $address = $nationality = $occupation = $nid = $file ="";
+$username = $password = $role = $firstName = $lastName = $phoneNumber = $email = $dob = $gender = $address = $nationality = $occupation = $nid = $file = "";
 
-function validate_input($data){
+function validate_input($data)
+{
     return htmlspecialchars(stripslashes(trim($data)));
 }
 
@@ -35,20 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // // Firstname
-    // if (empty($_POST['firstname'])) {
-    //     $firstNameError = '* Firstname is required'; 
-    // } else {
-    //     $firstName = validate_input($_POST["firstname"]);
-    // }
-
-    // // Lastname
-    // if (empty($_POST['lastname'])) {
-    //     $lastNameError = '* Lastname is required'; 
-    // } else {
-    //     $lastName = validate_input($_POST["lastname"]);
-    // }
-
     // DOB
     if (empty($_POST["dob"])) {
         $dobError = "* Date of birth is required.";
@@ -56,17 +43,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dob = validate_input($_POST["dob"]);
         $today = date("Y-m-d");
         if ($dob >= $today) {
-            $dobError = " Date of birth must be in the past.";
+            $phoneNumberError = " Date of birth must be in the past.";
         }
     }
 
     // Phone Number
-    if (!empty($_POST["phoneNumber"])) {
-        $phoneNumber = validate_input($_POST["phoneNumber"]);
-        if (!preg_match("/^\+8801[3-9][0-9]{8}$/", $phoneNumber)) {
-            $phoneNumberError = "* Invalid Bangladeshi phone number format.";
+
+    if (empty($_POST['phoneNumber'])) {
+        $phoneNumberError = '* insert valid phone number.';
+    } else {
+        $phoneNum = $_POST['phoneNumber'];
+        $phoneNumber = preg_replace("/\D/", "", $phoneNum); // Strip non-digits
+
+        if (strlen($phoneNumber) !== 11) {
+            $dobError = '*Phone number must be exactly 11 digits.';
+            exit();
         }
     }
+
 
     // Email
     if (empty($_POST["email"])) {
@@ -87,15 +81,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-
     // File Upload
-    if (!empty($_FILES['serviceHistoryFile']['name'])) {
+    if (!empty($_FILES['file']['name'])) {
         $uploadDir = "../uploads/";
-        $fileName = time() . "-" . basename($_FILES['serviceHistoryFile']['name']);
+        $fileName = time() . "-" . basename($_FILES['file']['name']);
         $targetPath = $uploadDir . $fileName;
 
-        if (move_uploaded_file($_FILES['serviceHistoryFile']['tmp_name'], $targetPath)) {
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $targetPath)) {
             $_SESSION['uploaded_file'] = $fileName;
+            $file = $fileName;
+            echo 'file uploaded successfully';
         }
     }
 
@@ -105,6 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nid = validate_input($_POST['idNumber'] ?? '');
 
     if (empty($usernameError) && empty($passwordError) && empty($roleError) && empty($phoneNumberError) && empty($emailError) && empty($dobError) && empty($genderError)) {
+        $conn = createconn();
 
         $_SESSION['user_data'] = [
             'username' => $username,
@@ -115,32 +111,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'gender' => $gender
         ];
 
+
         if (!empty($username)) {
             setcookie("userInfo", 1, time() + (86400 * 30));
-            echo 'Welcome to my page';
         }
 
         $conn = createConn();
-        if (insert($conn, $username, $password, $role, $phoneNumber, $email, $dob, $gender, $address, $nationality, $occupation, $nid, $file)) {
-            
+        if (insertData($conn, $username, $password, $role, $phoneNumber, $email, $dob, $gender, $address, $nationality, $occupation, $nid, $file)) {
+
             // close for using javascript
             ?>
 
-            <script type="text/javascript">alert("Data inserted successfully");</script>
-            
+            <script type="text/javascript">alert("Data inserted successfully");
+                window.open("http://localhost/WebTech_Project/Admin/view/admin_panel.php", '_self');
+            </script>
+
             <?php
-            header("Location: ../view/login.php");
-            
+
         } else {
-            
+
             ?>
 
-            <script type="text/javascript">alert("Data inserted successfully");</script>
-            
+            <script type="text/javascript">alert("Data insertion failed");
+
+
+            </script>
+
             <?php
-            header("Location: ../view/login.php");
         }
         closeConn($conn);
+
     } else {
         $_SESSION['form_errors'] = [
             'usernameError' => $usernameError,
@@ -152,6 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'genderError' => $genderError
         ];
     }
+
+
 }
 
 ?>
